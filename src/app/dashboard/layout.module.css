@@ -1,0 +1,22 @@
+.container {
+  min-height: 100vh;
+}
+
+.navbarWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background-color: white;
+  height: 3rem;
+}
+
+.mainContent {
+  padding-top: 3rem;
+  margin-left: 16rem;
+}
+
+.pageContent {
+  padding: 1.5rem;
+} 

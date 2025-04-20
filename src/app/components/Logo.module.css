@@ -1,0 +1,61 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoIcon {
+  position: relative;
+  background: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.calendarIcon {
+  width: 28px;
+  height: 28px;
+  color: #635bff;
+  z-index: 2;
+}
+
+.logoIconRing {
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #635bff 0%, #00d4ff 100%);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+}
+
+.logoText {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+
+.visaText {
+  background: linear-gradient(135deg, #635bff 0%, #4b45c6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 1px;
+}
+
+.slotText {
+  background: linear-gradient(135deg, #4b45c6 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} 
