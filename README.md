@@ -1,6 +1,44 @@
 ## Setup
 Install docker app + cli. On mac, that's done via `brew install --cask docker`. On windows, you figure out and update the readme please.
 
+### 1. Clone the original
+`git clone git@github.com:himanshuB2/base_template_app.git ai_real_estate`
+`cd ai_real_estate`
+
+### 2. Create github repo for new project
+Create a new repo on Github (eg. ai_real_estate)
+
+### 3. Log into Github on terminal
+`gh auth login`
+
+### 4. Point git at new empty repo you just created on github (use ssh)
+```
+git remote set-url origin https://github.com/Lindsay07/ai_real_estate.git
+git add -u #Stage all changes to files that are already tracked
+git commit -am “first commit”
+git push -u origin main` #upload commit to Github
+```
+
+### 5. Ask cursor to do the following
+* Add .env file
+* Add .gitignore file
+
+### 6. Update .env file
+Update DATABASE_URL in .env file
+`DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/ai_real_estate`
+
+For windows, perform this additional step:
+```
+sudo apt update && sudo apt install dos2unix
+dos2unix start-database.sh
+```
+
+Now run database locally with
+```
+./start-database.sh
+```
+
+
 ## How do I install dependencies?
 pnpm install
 
