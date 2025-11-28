@@ -1,112 +1,151 @@
-## Setup
-Install docker app + cli. On mac, that's done via `brew install --cask docker`. On windows, you figure out and update the readme please.
+# Aspire - AI-Powered Ads Scaling Assistant
 
-### 1. Clone the original
-`git clone git@github.com:himanshuB2/base_template_app.git ai_real_estate`
-`cd ai_real_estate`
+A prototype UI for an AI-powered ads assistant that helps SMBs launch and scale ads across Meta, TikTok, and Google.
 
-### 2. Create github repo for new project
-Create a new repo on Github (eg. ai_real_estate)
+## ✨ Key Features
 
-### 3. Log into Github on terminal
-`gh auth login`
+### 🚀 AI-First User Experience
+- **Marketing Landing Page**: Beautiful hero input (inspired by Lovable)
+- **AI Auto-Generation**: Submit your goal → AI generates complete campaign strategy
+- **Review-Based Workflow**: All steps auto-populated with "To Review" status
+- **Non-linear Navigation**: Jump between any of the 8 campaign steps
 
-### 4. Point git at new empty repo you just created on github (use ssh)
+### 🤖 Smart Assistance
+- **AI Chat Panel**: Hidable side panel (like Cursor AI) for contextual help
+- **Context-Aware Prompts**: Suggested questions based on current step
+- **Real-time Feedback**: Quality checks and performance predictions
+
+### 🎨 Design
+- **Warm Bakery Theme**: Custom color palette for Satura Patisserie
+- **Gradient Hero**: Beautiful multi-color gradient background
+- **Smooth Animations**: Loading states and transitions
+- **Responsive Layout**: Works on all screen sizes
+
+## 📋 User Flow
+
+### 1. Landing Page
+- User lands on marketing-style page with large input field
+- Example prompts help guide users
+- Clean, minimal design focused on the input
+
+### 2. AI Generation
+- Beautiful loading animation showing AI progress:
+  - Analyzing your goal
+  - Selecting optimal channels
+  - Building audience profile
+  - Creating creative strategy
+  - Calculating budget & forecast
+  - Generating ad assets
+
+### 3. Review Dashboard
+- User automatically taken to Step 2 (Strategy)
+- Steps 2-5 marked as "To Review" (yellow badges)
+- User can review, edit, and approve each step
+- Once approved, step changes from "To Review" → "Reviewed" ✓
+
+## 🎯 Campaign Steps
+
+1. **Intent** (Landing Page) - Express marketing goals in natural language
+2. **Strategy** - AI-generated marketing plan with channel recommendations
+3. **Creative** - Upload or generate ad assets with AI assistance
+4. **Review** - Approve the campaign plan
+5. **Launch** - Execute the campaign
+6. **Monitor** - Track performance with daily updates
+7. **Optimize** - AI-driven optimization recommendations
+8. **Postmortem** - Campaign review and insights
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
-git remote set-url origin https://github.com/Lindsay07/ai_real_estate.git
-git add -u #Stage all changes to files that are already tracked
-git commit -am “first commit”
-git push -u origin main` #upload commit to Github
-```
 
-### 5. Ask cursor to do the following
-* Add .env file
-* Add .gitignore file
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 6. Update .env file
-Update DATABASE_URL in .env file
-`DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/ai_real_estate`
+## 🛠 Tech Stack
 
-For windows, perform this additional step:
-```
-sudo apt update && sudo apt install dos2unix
-dos2unix start-database.sh
-```
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first styling with custom colors
+- **Lucide React** - Beautiful icon library
 
-Now run database locally with
-```
-./start-database.sh
-```
+## 📊 Current Status
 
+### ✅ Completed Features
 
-## How do I install dependencies?
-pnpm install
+**Core Flow:**
+- ✅ Landing page with hero input
+- ✅ AI generation animation (6 steps)
+- ✅ Auto-population of steps 2-5
+- ✅ "To Review" status system
+- ✅ Review and approve workflow
 
-## How do I run the app locally?
+**UI Components:**
+- ✅ Marketing-style landing page
+- ✅ Generation loading screen
+- ✅ Sidebar navigation with status badges
+- ✅ AI chat panel (hidable)
+- ✅ Top bar with notifications
+- ✅ Step 2: Strategy (fully functional)
+- ✅ Step 3: Creative (fully functional)
 
-### Run postgres db locally
-`./start-database.sh`
+### 🚧 Coming Soon
+- Steps 4-8 (Review, Launch, Monitor, Optimize, Postmortem)
+- Dashboard home view
+- Multiple campaign management
+- Real performance tracking simulation
 
-### Running the app
-`pnpm dev`
+## 🎨 Color Palette
 
-## Run build locally
-To avoid wasting a round trip with vercel, run this locally
-`npm run build`
+### Bakery Colors
+- `bakery-50`: #FFF9F5
+- `bakery-400`: #FFB885
+- `bakery-500`: #FF9B52 (primary)
+- `bakery-600`: #E67A3D
 
-## How do I do db operations?
+### Cream Colors
+- `cream-50`: #FFFBF7
+- `cream-200`: #FFEEDD
+- `cream-500`: #FFC380
 
-### Step 1: Add a table to the schema.ts file
+## 📱 User Journey Example
 
-### Step 2: Generate sql from this
-Generate sql files based on the drizzle.config.ts file:
-`pnpm db:generate`
+**Satura Patisserie** wants to increase sales:
 
-### Step 2: Run db migration based on this
-Locally: `pnpm db:migrate`
+1. **Lands on homepage** → Sees beautiful gradient hero
+2. **Types goal:** "I want to increase sales of our bakery. In the ad, I want to showcase our delicious cakes..."
+3. **Clicks "Generate Campaign"** → AI generation animation plays
+4. **Arrives at Strategy page** → Sees complete marketing plan with:
+   - Recommended channels (Meta, TikTok)
+   - Target audience breakdown
+   - Budget allocation ($1,500)
+   - Performance forecast (180-240% ROI)
+5. **Reviews and approves** → Moves to Creative step
+6. **Reviews AI-generated assets** → Sees quality checks, headlines, performance predictions
+7. **Approves** → Ready for launch!
 
-To run this on prod, you can update the DATABASE_URL to point to prod and run this. 
-`DATABASE_URL="<COPY URL FROM VERCEL>" pnpm db:migrate`
+## 🔄 Step Status System
 
-Alternatively, let vercel handle this (once you set this up)
+- **Empty**: Not generated yet (gray)
+- **To Review**: AI generated, needs review (yellow badge)
+- **Reviewed/Completed**: User approved (green checkmark)
+- **Active**: Currently viewing (orange highlight)
 
-### Visualize your database
-To view and interact with your database schema:
-`pnpm db:studio`
+## 💡 Tips for Development
 
-This will start Drizzle Studio at https://local.drizzle.studio where you can:
-- View all your tables and their relationships
-- Browse and edit data
-- Run SQL queries
-- Export data
-
-# Out of the box instructions (can ignore)
-## Create T3 App
-
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
-
-## What's next? How do I make an app with this?
-
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- The app starts at `landing` state
+- After submitting intent, it transitions to `generating`
+- After ~7 seconds, it moves to `app` state showing Step 2
+- All step data is currently mocked/static
+- AI chat responses are simulated based on current step
