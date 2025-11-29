@@ -1,6 +1,6 @@
 import { 
   Home, 
-  Target, 
+  Target,
   Lightbulb, 
   Image, 
   CheckCircle, 
@@ -21,7 +21,7 @@ interface SidebarProps {
 }
 
 const steps = [
-  { id: 1, name: 'Intent', icon: Target, description: 'Express your goal' },
+  { id: 1, name: 'Intent', icon: Target, description: 'Review your goal' },
   { id: 2, name: 'Strategy', icon: Lightbulb, description: 'Marketing plan' },
   { id: 3, name: 'Creative', icon: Image, description: 'Ad assets' },
   { id: 4, name: 'Review', icon: CheckCircle, description: 'Approve plan' },

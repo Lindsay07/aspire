@@ -5,8 +5,11 @@ import Sidebar from '@/components/Sidebar'
 import AIChatPanel from '@/components/AIChatPanel'
 import LandingPage from '@/components/LandingPage'
 import GeneratingAnimation from '@/components/GeneratingAnimation'
+import Step1Intent from '@/components/steps/Step1Intent'
 import Step2Strategy from '@/components/steps/Step2Strategy'
 import Step3Creative from '@/components/steps/Step3Creative'
+import Step4Review from '@/components/steps/Step4Review'
+import Step5Launch from '@/components/steps/Step5Launch'
 import TopBar from '@/components/TopBar'
 
 type AppState = 'landing' | 'generating' | 'app'
@@ -14,10 +17,11 @@ type AppState = 'landing' | 'generating' | 'app'
 export default function Home() {
   const [appState, setAppState] = useState<AppState>('landing')
   const [userIntent, setUserIntent] = useState('')
-  const [currentStep, setCurrentStep] = useState(2)
+  const [campaignGoal, setCampaignGoal] = useState('Increase bakery sales through video showcase')
+  const [currentStep, setCurrentStep] = useState(1)
   const [isChatOpen, setIsChatOpen] = useState(false)
-  const [completedSteps, setCompletedSteps] = useState<number[]>([1])
-  const [reviewSteps, setReviewSteps] = useState<number[]>([2, 3, 4, 5])
+  const [completedSteps, setCompletedSteps] = useState<number[]>([])
+  const [reviewSteps, setReviewSteps] = useState<number[]>([1, 2, 3, 4, 5])
 
   const handleIntentSubmit = (intent: string) => {
     setUserIntent(intent)
@@ -32,7 +36,7 @@ export default function Home() {
       
       const timer = setTimeout(() => {
         setAppState('app')
-        setCurrentStep(2) // Show Strategy step
+        setCurrentStep(1) // Show Intent step
       }, totalDuration)
 
       return () => clearTimeout(timer)
@@ -41,12 +45,26 @@ export default function Home() {
 
   const renderStep = () => {
     switch (currentStep) {
+      case 1:
+        return (
+          <Step1Intent
+            onComplete={() => handleStepReview(1)}
+            userIntent={userIntent}
+            goal={campaignGoal}
+            onUpdateGoal={setCampaignGoal}
+          />
+        )
       case 2:
         return <Step2Strategy onComplete={() => handleStepReview(2)} userIntent={userIntent} />
       case 3:
         return <Step3Creative onComplete={() => handleStepReview(3)} />
       case 4:
+        return <Step4Review onComplete={() => handleStepReview(4)} onEditStep={setCurrentStep} />
       case 5:
+        return <Step5Launch onComplete={() => handleStepReview(5)} />
+      case 6:
+      case 7:
+      case 8:
         return (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
@@ -72,6 +90,16 @@ export default function Home() {
     setReviewSteps(reviewSteps.filter(s => s !== step))
     if (!completedSteps.includes(step)) {
       setCompletedSteps([...completedSteps, step])
+    }
+    // Navigate to next step after approval
+    if (step === 1) {
+      setCurrentStep(2) // Intent → Strategy
+    } else if (step === 2) {
+      setCurrentStep(3) // Strategy → Creative
+    } else if (step === 3) {
+      setCurrentStep(4) // Creative → Review
+    } else if (step === 4) {
+      setCurrentStep(5) // Review → Launch
     }
   }
 
