@@ -29,9 +29,10 @@ const steps = [
 
 export default function Sidebar({ currentStep, completedSteps, reviewSteps, onStepChange }: SidebarProps) {
   const getStepStatus = (stepId: number) => {
+    // Active status takes priority - if it's the current step, show as active
+    if (stepId === currentStep) return 'active'
     if (completedSteps.includes(stepId)) return 'completed'
     if (reviewSteps.includes(stepId)) return 'to_review'
-    if (stepId === currentStep) return 'active'
     return 'pending'
   }
 

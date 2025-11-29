@@ -107,15 +107,6 @@ export default function Step5Launch({ onComplete }: Step5LaunchProps) {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Launching Your Campaigns</h1>
-        <p className="text-gray-600">
-          {isLaunching 
-            ? 'Creating campaigns and uploading creatives to each platform...' 
-            : 'Your campaigns are now live! 🎉'}
-        </p>
-      </div>
 
       {/* Launch Progress */}
       <div className="bg-white rounded-xl p-8 border border-cream-200 shadow-sm">

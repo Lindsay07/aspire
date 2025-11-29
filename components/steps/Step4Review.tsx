@@ -41,11 +41,6 @@ export default function Step4Review({ onComplete, onEditStep }: Step4ReviewProps
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Review Your Campaign</h1>
-        <p className="text-gray-600">Final check before launching. Make sure everything looks good.</p>
-      </div>
 
       {/* Campaign Summary */}
       <div className="bg-white rounded-xl p-8 border border-cream-200 shadow-sm">

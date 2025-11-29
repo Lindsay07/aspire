@@ -12,7 +12,11 @@ import {
   Sparkles,
   ArrowRight,
   Calendar,
-  BarChart3
+  BarChart3,
+  MoreVertical,
+  Pause,
+  Square,
+  Settings
 } from 'lucide-react'
 
 interface DashboardProps {
@@ -33,6 +37,8 @@ interface Recommendation {
 
 export default function Dashboard({ onEditStep, isOptimizeOpen: externalOptimizeOpen, onOptimizeToggle }: DashboardProps) {
   const [internalOptimizeOpen, setInternalOptimizeOpen] = useState(true)
+  const [showCampaignActions, setShowCampaignActions] = useState(false)
+  const [campaignStatus, setCampaignStatus] = useState<'active' | 'paused' | 'ended'>('active')
   const isOptimizeOpen = externalOptimizeOpen !== undefined ? externalOptimizeOpen : internalOptimizeOpen
   
   const setIsOptimizeOpen = (open: boolean) => {
@@ -41,6 +47,17 @@ export default function Dashboard({ onEditStep, isOptimizeOpen: externalOptimize
     } else {
       setInternalOptimizeOpen(open)
     }
+  }
+
+  const handleCampaignAction = (action: 'pause' | 'end' | 'resume') => {
+    if (action === 'pause') {
+      setCampaignStatus('paused')
+    } else if (action === 'end') {
+      setCampaignStatus('ended')
+    } else if (action === 'resume') {
+      setCampaignStatus('active')
+    }
+    setShowCampaignActions(false)
   }
 
   // Mock performance data
@@ -104,12 +121,29 @@ export default function Dashboard({ onEditStep, isOptimizeOpen: externalOptimize
       impact: 'Expected: +10% CTR',
       confidence: 'medium',
       action: 'Start A/B Test'
+    },
+    {
+      id: '5',
+      type: 'pause',
+      title: 'Consider Ending Campaign',
+      description: 'Campaign ROI below target for 5 days. Ending early could save $1,050 remaining budget.',
+      impact: 'Save $1,050',
+      confidence: 'medium',
+      action: 'End Campaign'
     }
   ]
 
   const handleRecommendation = (id: string, approve: boolean) => {
-    // Handle approve/reject
-    console.log(`${approve ? 'Approved' : 'Rejected'} recommendation ${id}`)
+    if (approve) {
+      const rec = recommendations.find(r => r.id === id)
+      if (rec?.type === 'pause' && rec.title.includes('Ending Campaign')) {
+        handleCampaignAction('end')
+      }
+      // Handle other recommendation types
+      console.log(`Approved recommendation ${id}`)
+    } else {
+      console.log(`Rejected recommendation ${id}`)
+    }
   }
 
   return (
@@ -120,16 +154,86 @@ export default function Dashboard({ onEditStep, isOptimizeOpen: externalOptimize
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Campaign Dashboard</h1>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900">Campaign Dashboard</h1>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  campaignStatus === 'active' 
+                    ? 'bg-green-100 text-green-700'
+                    : campaignStatus === 'paused'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'bg-gray-100 text-gray-700'
+                }`}>
+                  {campaignStatus === 'active' ? 'Active' : campaignStatus === 'paused' ? 'Paused' : 'Ended'}
+                </span>
+              </div>
               <p className="text-gray-600">Monitor your active campaigns and performance</p>
             </div>
-            <button
-              onClick={() => setIsOptimizeOpen(!isOptimizeOpen)}
-              className="flex items-center gap-2 px-4 py-2 bg-bakery-500 hover:bg-bakery-600 text-white rounded-lg font-medium transition-colors"
-            >
-              <Sparkles className="w-5 h-5" />
-              {isOptimizeOpen ? 'Hide' : 'Show'} Optimize
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <button
+                  onClick={() => setShowCampaignActions(!showCampaignActions)}
+                  className="p-2 border border-cream-300 hover:bg-cream-50 text-gray-700 rounded-lg transition-colors"
+                  title="Campaign Actions"
+                >
+                  <MoreVertical className="w-5 h-5" />
+                </button>
+                {showCampaignActions && (
+                  <>
+                    <div 
+                      className="fixed inset-0 z-10" 
+                      onClick={() => setShowCampaignActions(false)}
+                    />
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-cream-200 rounded-lg shadow-lg z-20">
+                      <div className="py-1">
+                        {campaignStatus === 'active' ? (
+                          <>
+                            <button
+                              onClick={() => handleCampaignAction('pause')}
+                              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-cream-50 flex items-center gap-2"
+                            >
+                              <Pause className="w-4 h-4" />
+                              Pause Campaign
+                            </button>
+                            <button
+                              onClick={() => handleCampaignAction('end')}
+                              className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                            >
+                              <Square className="w-4 h-4" />
+                              End Campaign
+                            </button>
+                          </>
+                        ) : campaignStatus === 'paused' ? (
+                          <button
+                            onClick={() => handleCampaignAction('resume')}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-cream-50 flex items-center gap-2"
+                          >
+                            <ArrowRight className="w-4 h-4" />
+                            Resume Campaign
+                          </button>
+                        ) : null}
+                        <button
+                          onClick={() => {
+                            if (onEditStep) onEditStep(2)
+                            setShowCampaignActions(false)
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-cream-50 flex items-center gap-2 border-t border-cream-200"
+                        >
+                          <Settings className="w-4 h-4" />
+                          Edit Settings
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              <button
+                onClick={() => setIsOptimizeOpen(!isOptimizeOpen)}
+                className="flex items-center gap-2 px-4 py-2 bg-bakery-500 hover:bg-bakery-600 text-white rounded-lg font-medium transition-colors"
+              >
+                <Sparkles className="w-5 h-5" />
+                {isOptimizeOpen ? 'Hide' : 'Show'} Optimize
+              </button>
+            </div>
           </div>
 
           {/* Quick Stats */}

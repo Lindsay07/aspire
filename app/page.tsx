@@ -11,6 +11,7 @@ import Step2Strategy from '@/components/steps/Step2Strategy'
 import Step3Creative from '@/components/steps/Step3Creative'
 import Step4Review from '@/components/steps/Step4Review'
 import Step5Launch from '@/components/steps/Step5Launch'
+import Step8Postmortem from '@/components/steps/Step8Postmortem'
 import TopBar from '@/components/TopBar'
 
 type AppState = 'landing' | 'generating' | 'app'
@@ -66,17 +67,7 @@ export default function Home() {
       case 5:
         return <Step5Launch onComplete={() => handleStepReview(5)} />
       case 8:
-        return (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🚧</span>
-              </div>
-              <p className="text-xl font-semibold text-gray-900 mb-2">Coming Soon</p>
-              <p className="text-gray-500">Postmortem is under construction</p>
-            </div>
-          </div>
-        )
+        return <Step8Postmortem onStartNext={() => setCurrentStep(1)} />
       default:
         return (
           <div className="flex items-center justify-center h-full">
