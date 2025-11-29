@@ -5,8 +5,6 @@ import {
   Image, 
   CheckCircle, 
   Rocket, 
-  Activity, 
-  Zap, 
   FileText,
   Check,
   Circle,
@@ -26,8 +24,6 @@ const steps = [
   { id: 3, name: 'Creative', icon: Image, description: 'Ad assets' },
   { id: 4, name: 'Review', icon: CheckCircle, description: 'Approve plan' },
   { id: 5, name: 'Launch', icon: Rocket, description: 'Go live' },
-  { id: 6, name: 'Monitor', icon: Activity, description: 'Track performance' },
-  { id: 7, name: 'Optimize', icon: Zap, description: 'Improve results' },
   { id: 8, name: 'Postmortem', icon: FileText, description: 'Review & learn' },
 ]
 
@@ -52,10 +48,24 @@ export default function Sidebar({ currentStep, completedSteps, reviewSteps, onSt
       <div className="p-6 border-b border-cream-200">
         <button
           onClick={() => onStepChange(0)}
-          className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-cream-50 transition-colors"
+          className={`flex items-center gap-3 w-full p-3 rounded-lg transition-all ${
+            currentStep === 0
+              ? 'bg-bakery-50 border-2 border-bakery-300'
+              : 'hover:bg-cream-50 border-2 border-transparent'
+          }`}
         >
-          <Home className="w-5 h-5 text-bakery-600" />
-          <span className="font-medium text-gray-900">Dashboard</span>
+          <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+            currentStep === 0
+              ? 'bg-bakery-100 text-bakery-600'
+              : 'bg-gray-100 text-gray-400'
+          }`}>
+            <Home className="w-5 h-5" />
+          </div>
+          <span className={`font-medium ${
+            currentStep === 0 ? 'text-gray-900' : 'text-gray-600'
+          }`}>
+            Dashboard
+          </span>
         </button>
       </div>
 

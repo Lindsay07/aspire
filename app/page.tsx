@@ -5,6 +5,7 @@ import Sidebar from '@/components/Sidebar'
 import AIChatPanel from '@/components/AIChatPanel'
 import LandingPage from '@/components/LandingPage'
 import GeneratingAnimation from '@/components/GeneratingAnimation'
+import Dashboard from '@/components/Dashboard'
 import Step1Intent from '@/components/steps/Step1Intent'
 import Step2Strategy from '@/components/steps/Step2Strategy'
 import Step3Creative from '@/components/steps/Step3Creative'
@@ -45,6 +46,8 @@ export default function Home() {
 
   const renderStep = () => {
     switch (currentStep) {
+      case 0:
+        return <Dashboard onEditStep={setCurrentStep} />
       case 1:
         return (
           <Step1Intent
@@ -62,8 +65,6 @@ export default function Home() {
         return <Step4Review onComplete={() => handleStepReview(4)} onEditStep={setCurrentStep} />
       case 5:
         return <Step5Launch onComplete={() => handleStepReview(5)} />
-      case 6:
-      case 7:
       case 8:
         return (
           <div className="flex items-center justify-center h-full">
@@ -72,7 +73,7 @@ export default function Home() {
                 <span className="text-3xl">🚧</span>
               </div>
               <p className="text-xl font-semibold text-gray-900 mb-2">Coming Soon</p>
-              <p className="text-gray-500">Step {currentStep} is under construction</p>
+              <p className="text-gray-500">Postmortem is under construction</p>
             </div>
           </div>
         )
@@ -123,8 +124,8 @@ export default function Home() {
           onStepChange={setCurrentStep}
         />
         
-        <main className={`flex-1 overflow-auto transition-all duration-300 ${isChatOpen ? 'mr-96' : ''}`}>
-          <div className="max-w-5xl mx-auto p-8">
+        <main className={`flex-1 overflow-auto transition-all duration-300 ${isChatOpen ? 'mr-96' : ''} ${currentStep === 0 ? 'relative' : ''}`}>
+          <div className={`${currentStep === 0 ? 'w-full p-8' : 'max-w-5xl mx-auto p-8'}`}>
             {renderStep()}
           </div>
         </main>
